@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'http://localhost:8087/api/v1'
+  apiBaseUrl: 'https://mirathy-project-production.up.railway.app/api/v1'
 };
