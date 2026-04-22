@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import javax.swing.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +20,9 @@ import java.util.Map;
 public class EmailService {
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
+
+    @org.springframework.beans.factory.annotation.Value("${spring.mail.username}")
+    private String senderEmail;
 
     @Async
     public void sendEmail(
@@ -50,7 +52,7 @@ public class EmailService {
         Context context = new Context();
         context.setVariables(properties);
 
-        helper.setFrom("mostafaeid1810@gmail.com");
+        helper.setFrom(senderEmail);
         helper.setTo(to);
         helper.setSubject(subject);
         String html = templateEngine.process(templateName, context);

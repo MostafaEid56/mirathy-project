@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HeirResult } from './models';
 import { Observable, of } from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 export interface SavedCase {
   id: number;
@@ -17,52 +18,38 @@ export interface SavedCase {
 })
 export class HistoryService {
 
-  private readonly baseUrl =
-    'http://localhost:8087/api/v1/api/v1/auth';
+  private readonly baseUrl = environment.apiBaseUrl + '/auth';
 
   constructor(private http: HttpClient) {}
 
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-  }
-
   getAllProblems(): Observable<HistoryProblem[]> {
     return this.http.get<HistoryProblem[]>(
-      `${this.baseUrl}/getAllProblem`,
-      { headers: this.getAuthHeaders() }
+      `${this.baseUrl}/getAllProblem`
     );
   }
 
   getFavoriteProblems(): Observable<HistoryProblem[]> {
     return this.http.get<HistoryProblem[]>(
-      `${this.baseUrl}/getAllFavoriteProblem`,
-      { headers: this.getAuthHeaders() }
+      `${this.baseUrl}/getAllFavoriteProblem`
     );
   }
 
   toggleFavorite(problemId: number): Observable<void> {
     return this.http.put<void>(
       `${this.baseUrl}/isFavorite/${problemId}`,
-      {},
-      { headers: this.getAuthHeaders() }
+      {}
     );
   }
 
   getProblemDetails(id: number): Observable<ProblemResult[]> {
     return this.http.get<ProblemResult[]>(
-      `${this.baseUrl}/problem/${id}`,
-      { headers: this.getAuthHeaders() }
+      `${this.baseUrl}/problem/${id}`
     );
   }
 
   deleteProblem(problemId: number): Observable<void> {
     return this.http.delete<void>(
-      `${this.baseUrl}/problem/${problemId}`,
-      { headers: this.getAuthHeaders() }
+      `${this.baseUrl}/problem/${problemId}`
     );
   }
 }

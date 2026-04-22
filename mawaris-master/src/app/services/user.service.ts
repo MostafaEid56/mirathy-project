@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface User {
   id: number;
@@ -15,7 +16,7 @@ export interface User {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = '/api/users'; // Adjust to your backend URL
+  private apiUrl = environment.apiBaseUrl + '/users'; // Adjust to your backend URL
 
   constructor(private http: HttpClient) {}
 

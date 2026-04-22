@@ -2,33 +2,22 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { InheritanceRequest, FullInheritanceResponse, HeirResult } from './models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
-  private apiUrl = 'http://localhost:8087/api/v1/auth/calculate';
+  private apiUrl = environment.apiBaseUrl + '/auth/calculate';
 
   constructor(private http: HttpClient) {}
 
-  private authHeader(){
-    const  token = localStorage.getItem('token');
-    return{
-      headers:new HttpHeaders({
-        Authorization:`Bearer ${token}`
-      }),
-    }
-  }
   calculate(request: InheritanceRequest): Observable<FullInheritanceResponse> {
     const formattedRequest = {
       ...request,
       heirs: this.formatHeirs(request.heirs)
     };
-   const token=localStorage.getItem("token");
-   if (token===null)
     return this.http.post<FullInheritanceResponse>(this.apiUrl, formattedRequest);
-    else
-     return this.http.post<FullInheritanceResponse>(this.apiUrl, formattedRequest,this.authHeader());
   }
 
   private formatHeirs(heirs: { [key: string]: number }): { [key: string]: number } {

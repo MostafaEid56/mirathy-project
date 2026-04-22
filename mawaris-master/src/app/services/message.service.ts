@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface ContactMessage {
   id: number;
@@ -14,7 +15,7 @@ export interface ContactMessage {
   providedIn: 'root'
 })
 export class MessageService {
-  private apiUrl = '/api/messages'; // Adjust to your backend URL
+  private apiUrl = environment.apiBaseUrl + '/messages'; // Adjust to your backend URL
 
   constructor(private http: HttpClient) {}
 

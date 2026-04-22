@@ -114,6 +114,11 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Actuator for health checks -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
 	</dependencies>
 
@@ -141,6 +146,20 @@
 							<version>1.5.5.Final</version>
 						</path>
 					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<!-- Spring Boot Maven Plugin for executable JAR -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 
