@@ -15,7 +15,8 @@ services:
 
   frontend:
     build:
-      context: ./mawaris-master
+      context: .
+      dockerfile: mawaris-master/Dockerfile
     ports:
       - "9095:80"
     restart: unless-stopped
